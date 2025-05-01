@@ -174,8 +174,6 @@ const JavaLearningModule: React.FC = () => {
         toast({
           title: "Success!",
           description: "You've solved the challenge!",
-          // Fix: Change 'variant: "success"' to 'variant: "default"'
-          // with a className to style it as success
           variant: "default",
           className: "bg-green-500 text-white border-green-600"
         });
@@ -917,6 +915,17 @@ const JavaLearningModule: React.FC = () => {
             <StoryAnimation />
           </div>
           
+          {/* Next button - Always visible */}
+          <div className="absolute bottom-4 right-4">
+            <Button 
+              onClick={advanceToNextLevel}
+              disabled={currentLevel >= levels.length - 1}
+              className="bg-java-primary hover:bg-java-primary/90 text-white"
+            >
+              Next <ArrowRight className="ml-1" size={16} />
+            </Button>
+          </div>
+          
           {/* Success overlay */}
           {showLevelComplete && (
             <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center z-10 animate-fade-in">
@@ -1011,3 +1020,4 @@ const JavaLearningModule: React.FC = () => {
 };
 
 export default JavaLearningModule;
+
