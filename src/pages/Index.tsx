@@ -13,6 +13,45 @@ import {
   getHintTextForLevel
 } from '@/utils/javaExecutor';
 
+// Add keyframe animations to the global style
+const animationStyles = `
+  @keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+  }
+  
+  @keyframes stomp {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-3px); }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  
+  @keyframes celebrate {
+    0% { transform: translateY(0) rotate(0); }
+    25% { transform: translateY(-10px) rotate(-5deg); }
+    50% { transform: translateY(0) rotate(0); }
+    75% { transform: translateY(-10px) rotate(5deg); }
+    100% { transform: translateY(0) rotate(0); }
+  }
+  
+  @keyframes scale-in {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  @keyframes unlock {
+    0% { transform: rotate(0); }
+    25% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+    75% { transform: rotate(-2deg); }
+    100% { transform: rotate(0); }
+  }
+`;
+
 const Index = () => {
   const { toast } = useToast();
   const [currentLevel, setCurrentLevel] = useState(1);
@@ -22,6 +61,17 @@ const Index = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [treasureState, setTreasureState] = useState<'locked' | 'unlocking' | 'unlocked'>('locked');
+
+  // Apply animation styles once when component mounts
+  useEffect(() => {
+    const styleElement = document.createElement('style');
+    styleElement.innerHTML = animationStyles;
+    document.head.appendChild(styleElement);
+    
+    return () => {
+      document.head.removeChild(styleElement);
+    };
+  }, []);
 
   useEffect(() => {
     // Reset state when level changes
