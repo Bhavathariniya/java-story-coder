@@ -174,7 +174,10 @@ const JavaLearningModule: React.FC = () => {
         toast({
           title: "Success!",
           description: "You've solved the challenge!",
-          variant: "success"
+          // Fix: Change 'variant: "success"' to 'variant: "default"'
+          // with a className to style it as success
+          variant: "default",
+          className: "bg-green-500 text-white border-green-600"
         });
         
         // Reset after showing completion for a moment
